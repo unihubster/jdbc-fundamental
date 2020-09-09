@@ -2,6 +2,7 @@ package net.demo.jdbcfundamental;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public class JDBCExecutor {
 
@@ -9,8 +10,8 @@ public class JDBCExecutor {
         DatabaseConnectionManager connectionManager = new DatabaseConnectionManager("localhost", "hplussport", "postgres", "root");
         try (Connection connection = connectionManager.getConnection()) {
             OrderDAO orderDAO = new OrderDAO(connection);
-            Order order = orderDAO.findById(1000);
-            System.out.println(order);
+            List<Order> orders = orderDAO.getOrdersForCustomer(789);
+            orders.forEach(System.out::println);
         } catch (SQLException e) {
             e.printStackTrace();
         }
